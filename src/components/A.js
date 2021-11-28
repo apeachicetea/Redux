@@ -12,31 +12,51 @@ function A(props){
             <th>id</th>
             <th>Name</th>
             <th>Quan</th>
+            <th>Set</th>
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <td>1</td>
-            <td>{ props.state[0].id }</td>
-            <td>{ props.state[0].name }</td>
-            <td>{ props.state[0].quan }</td>
-          </tr>
-          <tr>
-            <td>2</td>
-            <td></td>
-            <td></td>
-            <td></td>
-          </tr>
+            {
+              props.state.map((el, i)=>{
+                return(
+                  <tr key={ i }>
+                    <td>{ i }</td>
+                    <td>{ el.id }</td>
+                    <td>{ el.name }</td>
+                    <td>{ el.quan }</td>
+                    <td>
+                      <button onClick={ ()=>{ props.dispatch({ type: 'plus', payload: {name: 'kim'} }) } }>+</button>
+                      <button onClick={ ()=>{ props.dispatch({ type: 'minus' }) } }>-</button>
+                    </td>
+                  </tr>
+                )
+              })
+            }
         </tbody>
       </Table>
+    
+      {
+        props.alert
+        ? (
+          <div class="alert alert-success" role="alert">
+            A simple success alert—check it out!
+            <button onClick={()=>{ props.dispatch({ type: 'close' }) }}>닫기</button>
+          </div> 
+        )
+        : null
+      }
+
+      <button onClick={()=>{ props.dispatch({ type: 'add', payload: { id: 5, name: 'jeonju', quan: 23 } }) }}>항목추가</button>
     </div>
   )
 }
 
 
 function 함수명(state){
+  console.log(state);
   return {
-    state: state
+    state: state.reducer,
+    alert: state.reducer2
   }
 }
 
