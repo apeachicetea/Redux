@@ -1,13 +1,19 @@
 import './App.css';
 import React from 'react';
 import { useState } from 'react';
-import A from './A';
+import A from './components/A';
 
 
 
 
 function App() {
-  return null;
+
+  
+  return (
+    <div>
+      <A />
+    </div>
+  );
 }
 
 export default App;
