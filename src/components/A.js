@@ -1,8 +1,15 @@
 import React from 'react';
 import { Table } from 'react-bootstrap';
+import { useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { connect } from 'react-redux';
 
 function A(props){
+
+  let state = useSelector((state) => state)
+  console.log(state);
+  let dispatch = useDispatch()
+
   return (
     <div>
       <Table striped bordered hover>
@@ -17,7 +24,7 @@ function A(props){
         </thead>
         <tbody>
             {
-              props.state.map((el, i)=>{
+              state.reducer.map((el, i)=>{
                 return(
                   <tr key={ i }>
                     <td>{ i }</td>
@@ -25,8 +32,8 @@ function A(props){
                     <td>{ el.name }</td>
                     <td>{ el.quan }</td>
                     <td>
-                      <button onClick={ ()=>{ props.dispatch({ type: 'plus', payload: {name: 'kim'} }) } }>+</button>
-                      <button onClick={ ()=>{ props.dispatch({ type: 'minus' }) } }>-</button>
+                      <button onClick={ ()=>{ dispatch({ type: 'plus', payload: {name: 'kim'} }) } }>+</button>
+                      <button onClick={ ()=>{ dispatch({ type: 'minus' }) } }>-</button>
                     </td>
                   </tr>
                 )
@@ -40,25 +47,28 @@ function A(props){
         ? (
           <div class="alert alert-success" role="alert">
             A simple success alert—check it out!
-            <button onClick={()=>{ props.dispatch({ type: 'close' }) }}>닫기</button>
+            <button onClick={()=>{ dispatch({ type: 'close' }) }}>닫기</button>
           </div> 
         )
         : null
       }
 
-      <button onClick={()=>{ props.dispatch({ type: 'add', payload: { id: 5, name: 'jeonju', quan: 23 } }) }}>항목추가</button>
+      <button onClick={()=>{ dispatch({ type: 'add', payload: { id: 5, name: 'jeonju', quan: 23 } }) }}>
+        항목추가
+      </button>
     </div>
   )
 }
 
 
-function 함수명(state){
-  console.log(state);
-  return {
-    state: state.reducer,
-    alert: state.reducer2
-  }
-}
+// function 함수명(state){
+//   console.log(state);
+//   return {
+//     state: state.reducer,
+//     alert: state.reducer2
+//   }
+// }
 
 
-export default connect(함수명)(A);
+// export default connect(함수명)(A);
+export default A;
